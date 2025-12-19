@@ -1,6 +1,8 @@
 package com.pratyush.football_score.viewmodels
 
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pratyush.football_score.data.model.StandingsResponseItem
@@ -15,7 +17,7 @@ class StandingsViewModel @Inject constructor(
     private val repository: FootRepo
 ): ViewModel(){
 
-    var standingsState: UiState<List<StandingsResponseItem>> = UiState.Loading
+    var standingsState by mutableStateOf<UiState<List<StandingsResponseItem>>>(UiState.Loading)
         private set
 
     fun getLaLigaStandings() {
