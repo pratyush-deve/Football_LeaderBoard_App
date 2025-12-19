@@ -70,7 +70,8 @@ private fun HomeScreenContent(
                         StandingsCard(
                             teamName = item.team.name,
                             logoUrl = item.team.logo,
-                            abbreviation = item.team.abbreviation
+                            abbreviation = item.team.abbreviation,
+                            gamesplayed = item.stats.gamesPlayed
                         )
                     }
                 }
