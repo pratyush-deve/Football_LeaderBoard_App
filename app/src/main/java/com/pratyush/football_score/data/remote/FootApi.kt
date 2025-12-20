@@ -8,11 +8,9 @@ import retrofit2.http.Query
 interface FootApi {
 
     @Headers(
-        "x-rapidapi-key: 4226237bb9msh9dc42d685608170p177cc6jsn54db19933653",
+        "x-rapidapi-key: 100c853a0dmsh006c16e8ad3daeap104623jsnc5a6bf601cc5",
         "x-rapidapi-host: laliga-standings.p.rapidapi.com"
     )
     @GET("/")
-    suspend fun getLaLigaStandings(
-        @Query("season") season: Int = 2022
-    ): List<StandingsResponseItem>
+    suspend fun getLaLigaStandings(): List<StandingsResponseItem>
 }

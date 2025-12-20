@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.pratyush.football_score.ui.theme.Football_scoreTheme
+import com.pratyush.football_score.view.navigation.AppNavGraph
 import com.pratyush.football_score.view.screens.HomeScreen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            HomeScreen()
+            AppNavGraph()
         }
     }
 }

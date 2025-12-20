@@ -5,6 +5,7 @@ import android.R.attr.fontWeight
 import android.R.attr.text
 import android.R.attr.thickness
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -39,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.pratyush.football_score.data.utils.CardColorRank
+import com.pratyush.football_score.data.utils.StatsRow
 import com.pratyush.football_score.data.utils.TextColorRank
 
 @Composable
@@ -49,7 +51,8 @@ fun StandingsCard(
     gamesplayed: Int,
     goaldiff: Int,
     points: Int,
-    rank: Int
+    rank: Int,
+    onClick: () -> Unit
 ) {
     val textcolor = TextColorRank(rank = rank)
     var defaultCardColor = CardColorRank(rank = rank)
@@ -57,6 +60,9 @@ fun StandingsCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable {
+                onClick()
+            }
             .padding(vertical = 5.dp, horizontal = 16.dp),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
@@ -148,58 +154,16 @@ fun StandingsCard(
                     color = textcolor
                 )
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ){
-                    Text(
-                        text = "Played",
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.Normal,
-                        color = textcolor
-                    )
-                    Text(
-                        text = "Goal Diff",
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.Normal,
-                        color = textcolor
-                    )
-                    Text(
-                        text = "Points",
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.Normal,
-                        color = textcolor
-                    )
-                }
+                Spacer(modifier = Modifier.height(6.dp))
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ){
-                    Text(
-                        text = "$gamesplayed",
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = textcolor
-                    )
-                    Text(
-                        text = "$goaldiff",
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = textcolor
-                    )
-                    Text(
-                        text = "$points",
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = textcolor
-                    )
-                }
+                StatsRow(
+                    played = gamesplayed,
+                    goalDiff = goaldiff,
+                    points = points,
+                    textcolor = textcolor,
+                    cardColor = defaultCardColor
+                )
+
             }
             Spacer(modifier = Modifier.width(12.dp))
         }

@@ -1,6 +1,7 @@
 package com.pratyush.football_score.viewmodels
 
 import HomeScreenState
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -29,8 +30,10 @@ class HomeScreenViewModel @Inject constructor(
             when (val result = repository.getLaLigaStandings()) {
 
                 is UiState.Success -> {
-                    screenState = HomeScreenState.Success(result.data)
+                    val sortedItems = result.data.sortedBy { it.stats.rank }
+                    screenState = HomeScreenState.Success(sortedItems)
                 }
+
                 is UiState.Error -> {
                     screenState = HomeScreenState.Error(result.message)
                 }

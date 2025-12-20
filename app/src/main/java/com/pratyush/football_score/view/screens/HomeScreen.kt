@@ -28,7 +28,8 @@ import com.pratyush.football_score.viewmodels.HomeScreenViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    viewModel: HomeScreenViewModel = hiltViewModel()
+    viewModel: HomeScreenViewModel = hiltViewModel(),
+    onTeamClick: (String)->Unit
 ) {
     val state = viewModel.screenState
 
@@ -60,14 +61,18 @@ fun HomeScreen(
                     Color(0xFF000000)
                 )
         ) {
-            HomeScreenContent(state)
+            HomeScreenContent(
+                state,
+                onTeamClick = onTeamClick
+            )
         }
     }
 }
 
 @Composable
 private fun HomeScreenContent(
-    state: HomeScreenState
+    state: HomeScreenState,
+    onTeamClick: (String) -> Unit = {}
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
@@ -95,7 +100,10 @@ private fun HomeScreenContent(
                             gamesplayed = item.stats.gamesPlayed,
                             goaldiff = item.stats.goalDifference,
                             points = item.stats.points,
-                            rank = item.stats.rank
+                            rank = item.stats.rank,
+                            onClick = {
+                                onTeamClick(item.team.name)
+                            }
                         )
                     }
                 }
