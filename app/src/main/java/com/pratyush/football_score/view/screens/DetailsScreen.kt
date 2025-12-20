@@ -50,6 +50,7 @@ import com.pratyush.football_score.data.utils.DetailsUiState
 import com.pratyush.football_score.view.components.DetailsStatCard
 import com.pratyush.football_score.viewmodels.DetailsViewModel
 import com.pratyush.football_score.R
+import com.pratyush.football_score.view.components.GoalStatisticsCard
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -271,8 +272,17 @@ private fun DetailsContent(
             iconRes = R.drawable.draws,
             gradient = DetailGradients.Draws
         )
-
-
+        DetailsStatCard(
+            label = "Games Played",
+            value = "$gamesPlayed",
+            iconRes = R.drawable.played,
+            gradient = DetailGradients.GamesPlayed
+        )
+        GoalStatisticsCard(
+            goalsFor = goalsFor,
+            goalsAgainst = goalsAgainst,
+            goalDiff = goalDifference
+        )
     }
 }
 

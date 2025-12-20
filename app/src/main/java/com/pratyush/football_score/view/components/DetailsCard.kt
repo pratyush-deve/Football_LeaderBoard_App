@@ -82,7 +82,7 @@ fun DetailsStatCard(
                 Text(
                     text = label,
                     color = Color.White.copy(alpha = 0.9f),
-                    fontSize = 18.sp,
+                    fontSize = 22.sp,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.weight(1f)
                 )
@@ -97,6 +97,94 @@ fun DetailsStatCard(
         }
     }
 }
+
+@Composable
+fun GoalStatisticsCard(
+    goalsFor: Int,
+    goalsAgainst: Int,
+    goalDiff: Int
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.Transparent
+        )
+    ) {
+        Box(
+            modifier = Modifier
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Color(0xFF1C2E45),
+                            Color(0xFF0F1B2D)
+                        )
+                    )
+                )
+                .padding(20.dp)
+        ) {
+            Column {
+                Text(
+                    text = "Goal Statistics",
+                    color = Color.White,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                StatRow(
+                    label = "Goals For",
+                    value = goalsFor.toString(),
+                    valueColor = Color(0xFF1ED760)
+                )
+                StatRow(
+                    label = "Goals Against",
+                    value = goalsAgainst.toString(),
+                    valueColor = Color(0xFFFF5C6C)
+                )
+                StatRow(
+                    label = "Goal Difference",
+                    value = if (goalDiff >= 0) "+$goalDiff" else goalDiff.toString(),
+                    valueColor = if (goalDiff >= 0)
+                        Color(0xFF1ED760)
+                    else
+                        Color(0xFFFF5C6C)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun StatRow(
+    label: String,
+    value: String,
+    valueColor: Color
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 6.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = label,
+            color = Color.White.copy(alpha = 0.7f),
+            fontSize = 18.sp
+        )
+        Text(
+            text = value,
+            color = valueColor,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.SemiBold
+        )
+    }
+}
+
 
 
 
