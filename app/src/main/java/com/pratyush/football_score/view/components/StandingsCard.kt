@@ -5,6 +5,7 @@ import android.R.attr.fontWeight
 import android.R.attr.text
 import android.R.attr.thickness
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,6 +25,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
@@ -39,7 +41,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.pratyush.football_score.data.utils.CardColorRank
+import com.pratyush.football_score.data.utils.HomeGradients
 import com.pratyush.football_score.data.utils.StatsRow
 import com.pratyush.football_score.data.utils.TextColorRank
 
@@ -55,7 +57,7 @@ fun StandingsCard(
     onClick: () -> Unit
 ) {
     val textcolor = TextColorRank(rank = rank)
-    var defaultCardColor = CardColorRank(rank = rank)
+    val cardGradient = HomeGradients.byRank(rank)
 
     Card(
         modifier = Modifier
@@ -66,106 +68,114 @@ fun StandingsCard(
             .padding(vertical = 5.dp, horizontal = 16.dp),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
-            containerColor = defaultCardColor
-        )
+            containerColor = Color.Transparent
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
-        Row(
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(100.dp)
-                .padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-
-            Spacer(modifier = Modifier.width(4.dp))
-
-            Column(
-                modifier = Modifier
-                    .fillMaxHeight(),
-                verticalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = "$rank",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 15.sp,
-                    color = textcolor
+                .background(
+                    brush = HomeGradients.byRank(rank), // 👈 GRADIENT HERE
+                    shape = RoundedCornerShape(12.dp)
                 )
-            }
-
-            Spacer(modifier = Modifier.width(4.dp))
-
-            Card (
-                modifier = Modifier
-                    .padding(2.dp)
-                    .size(70.dp),
-                shape = RoundedCornerShape(8.dp)
-            ){
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ){
-                    AsyncImage(
-                        model = logoUrl,
-                        contentDescription = teamName,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .size(60.dp)
-                            .clip(CircleShape)
-                    )
-                }
-            }
-
-            Spacer(modifier = Modifier.width(8.dp))
-
-            VerticalDivider(
-                modifier = Modifier
-                    .height(60.dp)
-                    .padding(horizontal = 2.dp)
-                    .width(2.dp),
-                thickness = 2.dp,
-                color = textcolor
-            )
-
-            Spacer(modifier = Modifier.width(12.dp))
-
-            Column(
+                .padding(8.dp)
+        ) {
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight()
-                    .weight(1f)
-            ){
-                Row(
+                    .height(100.dp)
+                    .padding(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                Spacer(modifier = Modifier.width(4.dp))
+
+                Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 4.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ){
+                        .fillMaxHeight(),
+                    verticalArrangement = Arrangement.Center
+                ) {
                     Text(
-                        text = "$teamName ($abbreviation)",
-                        fontSize = 22.sp,
-                        fontWeight = FontWeight.SemiBold,
+                        text = "$rank",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 15.sp,
                         color = textcolor
                     )
                 }
 
-                HorizontalDivider(
-                    thickness = 1.dp,
+                Spacer(modifier = Modifier.width(4.dp))
+
+                Card (
+                    modifier = Modifier
+                        .padding(2.dp)
+                        .size(70.dp),
+                    shape = RoundedCornerShape(8.dp)
+                ){
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ){
+                        AsyncImage(
+                            model = logoUrl,
+                            contentDescription = teamName,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(60.dp)
+                                .clip(CircleShape)
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.width(8.dp))
+
+                VerticalDivider(
+                    modifier = Modifier
+                        .height(60.dp)
+                        .padding(horizontal = 2.dp)
+                        .width(2.dp),
+                    thickness = 2.dp,
                     color = textcolor
                 )
 
-                Spacer(modifier = Modifier.height(6.dp))
+                Spacer(modifier = Modifier.width(12.dp))
 
-                StatsRow(
-                    played = gamesplayed,
-                    goalDiff = goaldiff,
-                    points = points,
-                    textcolor = textcolor,
-                    cardColor = defaultCardColor
-                )
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight()
+                        .weight(1f)
+                ){
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ){
+                        Text(
+                            text = "$teamName ($abbreviation)",
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = textcolor
+                        )
+                    }
 
+                    HorizontalDivider(
+                        thickness = 1.dp,
+                        color = textcolor
+                    )
+
+                    Spacer(modifier = Modifier.height(6.dp))
+
+                    StatsRow(
+                        played = gamesplayed,
+                        goalDiff = goaldiff,
+                        points = points,
+                        textColor = textcolor
+                    )
+                }
+                Spacer(modifier = Modifier.width(12.dp))
             }
-            Spacer(modifier = Modifier.width(12.dp))
         }
     }
 }
