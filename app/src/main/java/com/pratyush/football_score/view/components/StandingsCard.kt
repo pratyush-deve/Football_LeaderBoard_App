@@ -23,27 +23,36 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.pratyush.football_score.data.utils.CardColorRank
+import com.pratyush.football_score.data.utils.TextColorRank
 
 @Composable
 fun StandingsCard(
     teamName: String,
     logoUrl: String,
     abbreviation: String,
-    gamesplayed: Int
+    gamesplayed: Int,
+    goaldiff: Int,
+    points: Int,
+    rank: Int
 ) {
-    val textcolor = Color(0xFFFFFFFF)
+    val textcolor = TextColorRank(rank = rank)
+    var defaultCardColor = CardColorRank(rank = rank)
 
     Card(
         modifier = Modifier
@@ -51,7 +60,7 @@ fun StandingsCard(
             .padding(vertical = 5.dp, horizontal = 16.dp),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(color = 0xFF2A2E41)
+            containerColor = defaultCardColor
         )
     ) {
         Row(
@@ -62,7 +71,22 @@ fun StandingsCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(4.dp))
+
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight(),
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "$rank",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 15.sp,
+                    color = textcolor
+                )
+            }
+
+            Spacer(modifier = Modifier.width(4.dp))
 
             Card (
                 modifier = Modifier
@@ -108,7 +132,7 @@ fun StandingsCard(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 8.dp),
+                        .padding(vertical = 4.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ){
                     Text(
@@ -119,15 +143,60 @@ fun StandingsCard(
                     )
                 }
 
-                Column(
+                HorizontalDivider(
+                    thickness = 1.dp,
+                    color = textcolor
+                )
+
+                Row(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight()
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ){
                     Text(
-                        text = "Played: $gamesplayed",
+                        text = "Played",
                         fontSize = 15.sp,
-                        fontWeight = FontWeight.Light,
+                        fontWeight = FontWeight.Normal,
+                        color = textcolor
+                    )
+                    Text(
+                        text = "Goal Diff",
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Normal,
+                        color = textcolor
+                    )
+                    Text(
+                        text = "Points",
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Normal,
+                        color = textcolor
+                    )
+                }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ){
+                    Text(
+                        text = "$gamesplayed",
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = textcolor
+                    )
+                    Text(
+                        text = "$goaldiff",
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = textcolor
+                    )
+                    Text(
+                        text = "$points",
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.SemiBold,
                         color = textcolor
                     )
                 }
