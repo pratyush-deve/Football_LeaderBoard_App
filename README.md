@@ -27,7 +27,7 @@ An Android application that displays **LaLiga football standings** with a clean,
 ---
 
 ## 📂 Project Structure
-
+````
 com.pratyush.football_score
 ├── data
 │   ├── model
@@ -41,7 +41,7 @@ com.pratyush.football_score
 │   ├── screens
 │   └── viewmodels
 └── MainActivity.kt
-
+````
 
 ---
 
