@@ -59,7 +59,7 @@ Navigation is handled using Navigation Compose with route arguments.
 
 ## 📦 Download APK
 
-APK will be uploaded soon.
+👉 [Download APK](FootballLeaderBoard.apk)
 
 ---
 
