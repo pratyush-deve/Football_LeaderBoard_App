@@ -4,6 +4,12 @@ An Android application that displays **LaLiga football standings** with a clean,
 
 ---
 
+## 📸 Screenshots
+| Home Screen | Details Screen 1 | Details Screen 2 |
+|-------------|------------------|------------------|
+| ![](screenshots/Home.png) | ![](screenshots/Details_1.png) | ![](screenshots/Details_2.png)
+
+
 ## 📱 Features
 
 - 📊 View LaLiga standings in a ranked leaderboard format
