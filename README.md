@@ -29,22 +29,19 @@ An Android application that displays **LaLiga football standings** with a clean,
 ## 📂 Project Structure
 
 com.pratyush.football_score
-│
 ├── data
-│ ├── model
-│ ├── remote
-│ └── repo
-│
+│   ├── model
+│   ├── remote
+│   └── repo
 ├── di
-│ └── AppModule.kt
-│
+│   └── AppModule.kt
 ├── view
-│ ├── components
-│ ├── navigation
-│ ├── screens
-│ └── viewmodels
-│
+│   ├── components
+│   ├── navigation
+│   ├── screens
+│   └── viewmodels
 └── MainActivity.kt
+
 
 ---
 
